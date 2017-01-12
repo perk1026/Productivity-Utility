@@ -1,11 +1,47 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
+
+<head>
+    <title>
+        <%= intro.title %>
+    </title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+    <script src='/js/index_react.pjs'></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+</head>
+
+<body>
+    <div class='vcenter shadow main_wrap'>
+        <table class='fill' cellspacing='0px'>
+            <tr>
+                <td class='desc_wrap'>
+                    <div id='<%= intro.desc.title_wrap_id %>' class='<%= intro.desc.title_wrap_id %>'><%= intro.menu_item[0].desc.title %></div>
+                    <div id='<%= intro.desc.context_wrap_id %>' class='<%= intro.desc.context_wrap_id %>'><%= intro.menu_item[0].desc.context %></div>
+                    <div id='<%= intro.desc.icon_wrap_id %>' class='<%= intro.desc.icon_wrap_id %>'></div>
+                </td>
+                <td class='menu_wrap'>
+                    <script>
+                        $(document).ready(function () {
+                            <% for(i=0; i<intro.menu_item.length; i++) {%>
+                            /* Add menu items */
+                            $('.menu_wrap').append('<div id=<%= intro.menu_item[i].id %>>');
+
+                            /* Assign properties */
+                            $('#<%= intro.menu_item[i].id %>').addClass('menu_item').text('<%= intro.menu_item[i].header %>');
+
+                            $('#<%= intro.menu_item[i].id %>').mouseover(function(){
+                                                       update_menu_desc('<%= intro.menu_item[i].id %>');
+                                                   });
+
+                            /* Set default selection for first item */  $('.menu_wrap').find('div:first').addClass('item_selected');
+                            <%}%>
+                        });
+                    </script>
+                </td>
+            </tr>
+        </table>
+        <div class="footer"><%= intro.footer %></div>
+    </div>
+</body>
+
 </html>
